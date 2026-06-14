@@ -5,8 +5,13 @@
 * **Cátedra:** UTN FRC
 * **Cuatrimestre y Año:** 1er cuatrimestre 5k3 2026
 * **Grupo:** Grupo 9
-* **Integrantes:** Valentin Gallardo Scaltriti, Mauricio Herrera, Nicolas Olivera
-![Descripción de la imagen](https://drive.google.com/uc?export=view&id=1eZXMmG6bDFrsARrMI1oWdkS8qeN4gpyL)
+* **Integrantes:** Valentin Alberto Gallardo Scaltriti - 92781
+            * Mauricio Herrera - 95205
+     * Felipe Nicolas Olivera - 95304
+
+  
+![Descripción de la imagen](https://drive.google.com/uc?export=view&id=1I73vkkVdQwcAdys9jDYwYdklJytZg4N1)
+
 
 ## 2. Análisis del Dataset (EDA)
 Durante la exploración inicial del dataset (Pascal VOC 2012) se obtuvieron las siguientes estadísticas y características:
@@ -18,6 +23,9 @@ Durante la exploración inicial del dataset (Pascal VOC 2012) se obtuvieron las 
   * Rango de alto: 71 - 500 píxeles.
   * Dimensión más frecuente (Moda): 500 x 375 píxeles.
 
+![Descripción de la imagen](https://drive.google.com/uc?export=view&id=1xjWPQh8pPA242MWI6q6JVb2c2X0nYkBC)
+![Descripción de la imagen](https://drive.google.com/uc?export=view&id=1qfz_KqdOexUApRDgE50XqFPsIX7bBBv3)
+![Descripción de la imagen](https://drive.google.com/uc?export=view&id=1R9iQigHrm1ucd7NiaekZmcJfIzDJdVee)
 ## 3. Metodología
 El sistema implementa un pipeline de búsqueda multimodal compuesto por los siguientes módulos:
 * **Generación de Embeddings (Baseline):** Se utilizó el modelo **CLIP (ViT-B/32)** para proyectar tanto las imágenes del dataset como las consultas de texto en un espacio latente compartido.
@@ -31,11 +39,20 @@ El sistema implementa un pipeline de búsqueda multimodal compuesto por los sigu
 * **Decisiones de Diseño:** * Pesos de penalización: Se definió un multiplicador (`NEGATIVE_PENALTY_WEIGHT = 1.40`) alto para castigar severamente las imágenes que contuvieran el concepto negado.
   * Boost de Clases VOC: Se aplicaron bonificaciones adicionales (`VOC_CLASS_BOOST` y `VOC_CLASS_STRONG_BOOST`) a las imágenes cuya clase de bounding box coincidiera con las inferidas de la consulta.
 
+
 ## 4. Resultados
-A partir de la traza de ejecución del pipeline, se validó el correcto funcionamiento de la búsqueda y la reformulación:
-* **Búsqueda Baseline:** Consultas simples como `car` o `boat` se expandieron adecuadamente a descripciones más ricas (e.g., *'vehicle with four wheels'*, *'small sailing vessel with sails'*), mejorando la alineación con las representaciones visuales de CLIP.
-* **Esquema de Negaciones:** En la consulta *'mujer con sombrero pero sin lentes'*, el agente identificó exitosamente 'glasses' como un término negativo. El sistema aplicó la penalización en el espacio latente, desplazando hacia abajo en el ranking a las imágenes de mujeres que llevaban anteojos, logrando extraer resultados acordes a la restricción.
-* **Consultas complejas:** Para la consulta *'perro en el agua con una pelota en la boca'*, la traducción y validación semántica extrajeron términos visuales clave y clases VOC esperadas (`cat`, `person` descartados si aplicara), logrando identificar la acción compleja.
+A partir de la traza de ejecución del pipeline, se validó el correcto funcionamiento de la búsqueda y la reformulación. Un caso de prueba destacado fue la consulta *"auto que no sea rojo"*:
+
+* **Búsqueda Baseline:** La búsqueda directa (CLIP + FAISS sin reformulación) recuperó imágenes sin aplicar traducción ni expansión de la consulta, mostrando limitaciones lógicas al tratar de interpretar la restricción de color de forma pura.
+* **Reformulación Agéntica (Phi-3-mini):** El agente procesó la consulta y extrajo con éxito la intención visual principal (*'automobile'*) y el concepto negativo a restringir (*'red'*). Esta reformulación logró introducir 5 imágenes nuevas relevantes respecto al baseline, demostrando una mejora clara en la alineación semántica.
+* **Esquema de Reranking y Negaciones:** En el último paso, el sistema aplicó el *boost* de las clases VOC y la penalización en el espacio latente para el término 'red'. Este reranking logró rescatar e incorporar 5 imágenes adicionales respecto a la fase del agente, desplazando hacia abajo en los resultados a los vehículos de color rojo y cumpliendo exitosamente con la restricción impuesta por el usuario.
+
+![Descripción de la imagen](https://drive.google.com/uc?export=view&id=1EdOw5p7JLEK_KH4MLoX-n0J6k1Avb9sn)
+![Descripción de la imagen](https://drive.google.com/uc?export=view&id=1F_EclVSEsKY3kJwwFIB0oXotKeUF16PT)
+
+  
+
+
 
 ## 5. Discusión y Análisis Crítico
 * **Qué funcionó bien:** El uso del LLM (Phi-3-mini) como agente planificador fue altamente efectivo para sortear la limitación de CLIP con el idioma (pasando de español a inglés) y para desambiguar consultas. El reranking negativo en el espacio de embeddings demostró ser una solución robusta para imponer restricciones que CLIP puro suele ignorar (el problema de *bag of words* de los modelos contrastivos).
