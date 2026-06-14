@@ -6,8 +6,8 @@
 * **Cuatrimestre y Año:** 1er cuatrimestre 5k3 2026
 * **Grupo:** Grupo 9
 * **Integrantes:** Valentin Gallardo Scaltriti, Mauricio Herrera, Nicolas Olivera
+![Resultado de búsqueda](https://drive.google.com/uc?export=view&id=1-PWv6dxY4RCxUSEe5N_mfMQu8mQnaNF8)
 
-[Ver capturas de los resultados en Google Drive](https://drive.google.com/drive/u/0/folders/1AwRvR1GNNgCxxjSrBTh6Tz-V1nOAqqCU)
 ## 2. Análisis del Dataset (EDA)
 Durante la exploración inicial del dataset (Pascal VOC 2012) se obtuvieron las siguientes estadísticas y características:
 * **Cantidad total de imágenes:** 17.125
