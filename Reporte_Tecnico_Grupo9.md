@@ -6,7 +6,7 @@
 * **Cuatrimestre y Año:** 1er cuatrimestre 5k3 2026
 * **Grupo:** Grupo 9
 * **Integrantes:** Valentin Gallardo Scaltriti, Mauricio Herrera, Nicolas Olivera
-![Resultado de búsqueda](https://drive.google.com/file/d/1-PWv6dxY4RCxUSEe5N_mfMQu8mQnaNF8/view?usp=sharing)
+![Descripción de la imagen](https://drive.google.com/uc?export=view&id=1eZXMmG6bDFrsARrMI1oWdkS8qeN4gpyL)
 
 ## 2. Análisis del Dataset (EDA)
 Durante la exploración inicial del dataset (Pascal VOC 2012) se obtuvieron las siguientes estadísticas y características:
