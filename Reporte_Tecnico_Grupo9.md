@@ -3,11 +3,11 @@
 ## 1. Portada
 * **Materia:** Inteligencia Artificial
 * **Cátedra:** UTN FRC
-* **Cuatrimestre y Año:** 1r cuatrimestre 5k3 2026
+* **Cuatrimestre y Año:** 1er cuatrimestre 5k3 2026
 * **Grupo:** Grupo 9
 * **Integrantes:** Valentin Gallardo Scaltriti, Mauricio Herrera, Nicolas Olivera
 
-
+[Ver capturas de los resultados en Google Drive](https://drive.google.com/drive/u/0/folders/1AwRvR1GNNgCxxjSrBTh6Tz-V1nOAqqCU)
 ## 2. Análisis del Dataset (EDA)
 Durante la exploración inicial del dataset (Pascal VOC 2012) se obtuvieron las siguientes estadísticas y características:
 * **Cantidad total de imágenes:** 17.125
